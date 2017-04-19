@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.hiram.curiousapps.fsretrofit.modelos.Get;
+
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -16,10 +18,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+
 public class MainActivity extends AppCompatActivity {
 
     String API_BASE_URL = "https://api.github.com/";
-    String API_CUSTOM_URL = "http://practica.eichgi.com/";
+    String API_CUSTOM_URL = "http://api.eichgi.com/";
 
     Button btnGet;
 
@@ -103,24 +106,25 @@ public class MainActivity extends AppCompatActivity {
         CustomClient client = retrofit.create(CustomClient.class);
 
         // Fetch a list of the Github repositories.
-        Call<Custom> call =
-                client.getData("nested.json");
+        Call<Get> call =
+                client.getData("Hiram Guerrero", 26, "ISC");
+        //client.getData("nested.json");
 
         // Execute the call asynchronously. Get a positive or negative callback.
-        call.enqueue(new Callback<Custom>() {
+        call.enqueue(new Callback<Get>() {
             @Override
-            public void onResponse(Call<Custom> call, Response<Custom> response) {
+            public void onResponse(Call<Get> call, Response<Get> response) {
                 // The network call was a success and we got a response
                 // TODO: use the repository list and display it
 
-                Custom custom = response.body();
-                String toast = "Nombre: " + custom.getName() + " \nEdad: " + custom.getEdad() + " \nProfesión: " + custom.getProfesion();
+                Get custom = response.body();
+                String toast = "Nombre: " + custom.getNombre() + " \nEdad: " + custom.getEdad() + " \nProfesión: " + custom.getProfesion();
                 Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
-                Log.d(getApplicationContext().toString(), custom.getLenguajes().get(0).getInfo());
+                //Log.d(getApplicationContext().toString(), custom.getLenguajes().get(0).getInfo());
             }
 
             @Override
-            public void onFailure(Call<Custom> call, Throwable t) {
+            public void onFailure(Call<Get> call, Throwable t) {
                 // the network call was a failure
                 // TODO: handle error
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
