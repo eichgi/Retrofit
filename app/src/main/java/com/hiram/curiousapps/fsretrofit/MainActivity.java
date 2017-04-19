@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.hiram.curiousapps.fsretrofit.modelos.Get;
+import com.hiram.curiousapps.fsretrofit.modelos.Post;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     String API_BASE_URL = "https://api.github.com/";
     String API_CUSTOM_URL = "http://api.eichgi.com/";
 
-    Button btnGet;
+    Button btnGet, btnPost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +33,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnGet = (Button) findViewById(R.id.btnGet);
+        btnPost = (Button) findViewById(R.id.btnPost);
+
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                customCall();
+                getCall();
+            }
+        });
+        btnPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postCall();
             }
         });
 
@@ -88,7 +97,44 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void customCall() {
+    public void postCall() {
+        Retrofit.Builder builder = new Retrofit.Builder()
+                .baseUrl(API_CUSTOM_URL)
+                .addConverterFactory(GsonConverterFactory.create());
+
+        Retrofit retrofit = builder.build();
+
+        CustomClient client = retrofit.create(CustomClient.class);
+
+        Post post = new Post("Rose Rodriguez", 25, "LII");
+
+        Call<Post> postCall = client.postData("Rose Rodriguez", 25, "LII");
+
+        Log.v(getApplicationContext().toString(), "PC:" + postCall.request().body());
+
+        postCall.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> postCall, Response<Post> response) {
+                // The network call was a success and we got a response
+                // TODO: use the repository list and display it
+
+                Post custom = response.body();
+                String toast = "Nombre: " + custom.getNombre() + " \nEdad: " + custom.getEdad() + " \nProfesión: " + custom.getProfesion();
+                Toast.makeText(MainActivity.this, toast, Toast.LENGTH_SHORT).show();
+                //Log.d(getApplicationContext().toString(), custom.getLenguajes().get(0).getInfo());
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                // the network call was a failure
+                // TODO: handle error
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.v(getApplicationContext().toString(), t.getMessage());
+            }
+        });
+    }
+
+    public void getCall() {
         //The client is optional, retrofit creates it if not defined
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -109,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
         Call<Get> call =
                 client.getData("Hiram Guerrero", 26, "ISC");
         //client.getData("nested.json");
+
+        Log.v(getApplicationContext().toString(), "GC:" + call.request().toString());
 
         // Execute the call asynchronously. Get a positive or negative callback.
         call.enqueue(new Callback<Get>() {

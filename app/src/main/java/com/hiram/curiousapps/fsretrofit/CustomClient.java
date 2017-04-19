@@ -1,9 +1,14 @@
 package com.hiram.curiousapps.fsretrofit;
 
 import com.hiram.curiousapps.fsretrofit.modelos.Get;
+import com.hiram.curiousapps.fsretrofit.modelos.Post;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -17,5 +22,16 @@ public interface CustomClient {
     Call<Custom> getData(@Path("file") String file);*/
 
     @GET("/get.php")
-    Call<Get> getData(@Query("nombre") String nombre, @Query("edad") int edad, @Query("profesion") String profesion);
+    Call<Get> getData(@Query("nombre") String nombre,
+                      @Query("edad") int edad,
+                      @Query("profesion") String profesion);
+
+    /*@POST("/post.php")
+    Call<Post> postData(@Body Post post);*/
+
+    @POST("/post.php")
+    @FormUrlEncoded
+    Call<Post> postData(@Field("nombre") String nombre,
+                        @Field("edad") int edad,
+                        @Field("profesion") String profesion);
 }
