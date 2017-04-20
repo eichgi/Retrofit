@@ -1,5 +1,6 @@
 package com.hiram.curiousapps.fsretrofit;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.hiram.curiousapps.fsretrofit.interfaces.CustomClient;
+import com.hiram.curiousapps.fsretrofit.interfaces.GitHubClient;
 import com.hiram.curiousapps.fsretrofit.modelos.Get;
 import com.hiram.curiousapps.fsretrofit.modelos.Post;
 
@@ -38,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCall();
+                Intent intent = new Intent(MainActivity.this, simpleGetActivity.class);
+                startActivity(intent);
             }
         });
         btnPost.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         Post post = new Post("Rose Rodriguez", 25, "LII");
 
-        Call<Post> postCall = client.postData("Rose Rodriguez", 25, "LII");
+        Call<Post> postCall = client.postData("Rose Rockdriguez", 25, "LII");
 
         Log.v(getApplicationContext().toString(), "PC:" + postCall.request().body());
 
@@ -134,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void getCall() {
+    /*public void getCall() {
         //The client is optional, retrofit creates it if not defined
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -179,5 +183,5 @@ public class MainActivity extends AppCompatActivity {
                 Log.v(getApplicationContext().toString(), t.getMessage());
             }
         });
-    }
+    }*/
 }

@@ -1,4 +1,6 @@
-package com.hiram.curiousapps.fsretrofit;
+package com.hiram.curiousapps.fsretrofit.interfaces;
+
+import com.hiram.curiousapps.fsretrofit.GitHubRepo;
 
 import java.util.List;
 

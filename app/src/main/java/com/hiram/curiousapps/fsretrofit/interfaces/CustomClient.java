@@ -1,4 +1,4 @@
-package com.hiram.curiousapps.fsretrofit;
+package com.hiram.curiousapps.fsretrofit.interfaces;
 
 import com.hiram.curiousapps.fsretrofit.modelos.Get;
 import com.hiram.curiousapps.fsretrofit.modelos.Post;
@@ -24,7 +24,7 @@ public interface CustomClient {
     @GET("/get.php")
     Call<Get> getData(@Query("nombre") String nombre,
                       @Query("edad") int edad,
-                      @Query("profesion") String profesion);
+                      @Query("email") String email);
 
     /*@POST("/post.php")
     Call<Post> postData(@Body Post post);*/
@@ -33,5 +33,5 @@ public interface CustomClient {
     @FormUrlEncoded
     Call<Post> postData(@Field("nombre") String nombre,
                         @Field("edad") int edad,
-                        @Field("profesion") String profesion);
+                        @Field("email") String email);
 }

@@ -8,12 +8,12 @@ public class Get {
 
     String nombre;
     int edad;
-    String profesion;
+    String email;
 
-    public Get(String nombre, int edad, String profesion) {
+    public Get(String nombre, int edad, String email) {
         this.nombre = nombre;
         this.edad = edad;
-        this.profesion = profesion;
+        this.email = email;
     }
 
     public String getNombre() {
@@ -24,7 +24,7 @@ public class Get {
         return edad;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public String getEmail() {
+        return email;
     }
 }

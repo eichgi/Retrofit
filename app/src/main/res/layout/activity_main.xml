@@ -14,21 +14,21 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="GET REQUEST"
+        android:text="GET REQUEST W/PARAMETERS"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049" />
+        app:layout_constraintVertical_bias="0.051" />
 
     <Button
         android:id="@+id/btnPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="13dp"
-        android:text="POST REQUEST"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="12dp"
+        android:text="POST REQUEST W/PARAMETERS"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGet" />
 
