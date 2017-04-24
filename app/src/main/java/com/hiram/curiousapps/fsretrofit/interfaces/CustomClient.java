@@ -1,7 +1,10 @@
 package com.hiram.curiousapps.fsretrofit.interfaces;
 
 import com.hiram.curiousapps.fsretrofit.modelos.Get;
+import com.hiram.curiousapps.fsretrofit.modelos.Language;
 import com.hiram.curiousapps.fsretrofit.modelos.Post;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,9 +21,6 @@ import retrofit2.http.Query;
 
 public interface CustomClient {
 
-    /*@GET("/{file}")
-    Call<Custom> getData(@Path("file") String file);*/
-
     @GET("/get.php")
     Call<Get> getData(@Query("nombre") String nombre,
                       @Query("edad") int edad,
@@ -29,9 +29,19 @@ public interface CustomClient {
     /*@POST("/post.php")
     Call<Post> postData(@Body Post post);*/
 
-    @POST("/post.php")
+    @POST("/{file}")
     @FormUrlEncoded
-    Call<Post> postData(@Field("nombre") String nombre,
+    Call<Post> postData(@Path("file") String file,
+                        @Field("nombre") String nombre,
                         @Field("edad") int edad,
                         @Field("email") String email);
+
+    /** --------------------------------------------------------------------------------------- */
+
+
+    /*@GET("/users/{user}/repos")
+    Call<List<GitHubRepo>> reposForUser(@Path("user") String user);*/
+
+    @GET("/list.php")
+    Call<List<Language>> getList();
 }

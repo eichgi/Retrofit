@@ -12,13 +12,13 @@ public class Post {
     String nombre;
     @SerializedName("edad")
     int edad;
-    @SerializedName("profesion")
-    String profesion;
+    @SerializedName("email")
+    String email;
 
-    public Post(String nombre, int edad, String profesion) {
+    public Post(String nombre, int edad, String email) {
         this.nombre = nombre;
         this.edad = edad;
-        this.profesion = profesion;
+        this.email = email;
     }
 
     public String getNombre() {
@@ -29,7 +29,7 @@ public class Post {
         return edad;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public String getEmail() {
+        return email;
     }
 }
