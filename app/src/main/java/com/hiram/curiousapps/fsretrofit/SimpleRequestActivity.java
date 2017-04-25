@@ -22,7 +22,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class simpleRequestActivity extends AppCompatActivity {
+public class SimpleRequestActivity extends AppCompatActivity {
 
     Button btnRequest;
     EditText etName, etAge, etEmail, etResponse;
@@ -143,7 +143,7 @@ public class simpleRequestActivity extends AppCompatActivity {
             public void onFailure(Call<Get> call, Throwable t) {
                 // the network call was a failure
                 // TODO: handle error
-                Toast.makeText(simpleRequestActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SimpleRequestActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.v(getApplicationContext().toString(), t.getMessage());
             }
         });

@@ -42,6 +42,6 @@ public interface CustomClient {
     /*@GET("/users/{user}/repos")
     Call<List<GitHubRepo>> reposForUser(@Path("user") String user);*/
 
-    @GET("/list.php")
+    @GET("/list2.php")
     Call<List<Language>> getList();
 }
