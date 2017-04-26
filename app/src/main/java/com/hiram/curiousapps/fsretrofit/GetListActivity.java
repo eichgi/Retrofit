@@ -5,12 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.hiram.curiousapps.fsretrofit.interfaces.CustomClient;
-import com.hiram.curiousapps.fsretrofit.modelos.Language;
+import com.hiram.curiousapps.fsretrofit.interfaces.API;
+import com.hiram.curiousapps.fsretrofit.models.Language;
 
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class GetListActivity extends AppCompatActivity {
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
 
-        CustomClient client = retrofit.create(CustomClient.class);
+        API client = retrofit.create(API.class);
 
         Call<List<Language>> listCall = client.getList();
 

@@ -9,8 +9,6 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    String API_BASE_URL = "https://api.github.com/";
-
     Button btnGet, btnPost, btnList;
     Intent intent;
     Bundle bundle;
@@ -20,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        intent = new Intent(MainActivity.this, SimpleRequestActivity.class);
         bundle = new Bundle();
         btnGet = (Button) findViewById(R.id.btnGet);
         btnPost = (Button) findViewById(R.id.btnPost);
@@ -29,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         btnGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                intent = new Intent(MainActivity.this, SimpleRequestActivity.class);
                 bundle.putString("method", "get");
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -38,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                intent = new Intent(MainActivity.this, SimpleRequestActivity.class);
                 bundle.putString("method", "post");
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -48,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(MainActivity.this, GetListActivity.class);
-                /*bundle.putString("method", "get");
-                intent.putExtras(bundle);*/
                 startActivity(intent);
             }
         });

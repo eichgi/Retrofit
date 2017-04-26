@@ -9,9 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hiram.curiousapps.fsretrofit.interfaces.CustomClient;
-import com.hiram.curiousapps.fsretrofit.modelos.Get;
-import com.hiram.curiousapps.fsretrofit.modelos.Post;
+import com.hiram.curiousapps.fsretrofit.interfaces.API;
+import com.hiram.curiousapps.fsretrofit.models.User;
 
 import java.util.Objects;
 
@@ -70,27 +69,28 @@ public class SimpleRequestActivity extends AppCompatActivity {
 
         Retrofit retrofit = builder.build();
 
-        CustomClient client = retrofit.create(CustomClient.class);
+        API client = retrofit.create(API.class);
 
         //Post post = new Post("Rose Rodriguez", 25, "rose@mail.com");
 
-        Call<Post> postCall = client.postData("post.php", name, age, email);
+        Call<User> postCall = client.postData("post.php", name, age, email);
 
         Log.v(getApplicationContext().toString(), "PC:" + postCall.request().body());
 
-        postCall.enqueue(new Callback<Post>() {
+        postCall.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Post> postCall, Response<Post> response) {
+            public void onResponse(Call<User> postCall, Response<User> response) {
                 // The network call was a success and we got a response
                 // TODO: use the repository list and display it
 
-                Post custom = response.body();
-                String res = "Name: " + custom.getNombre() + " \nAge: " + custom.getEdad() + " \nEmail: " + custom.getEmail();
+                User custom = response.body();
+                String res = "Method: " + method;
+                res += "\nName: " + custom.getNombre() + " \nAge: " + custom.getEdad() + " \nEmail: " + custom.getEmail();
                 etResponse.setText(res);
             }
 
             @Override
-            public void onFailure(Call<Post> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 // the network call was a failure
                 // TODO: handle error
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
@@ -118,29 +118,30 @@ public class SimpleRequestActivity extends AppCompatActivity {
                         .build();
 
         // Create a very simple REST adapter which points the GitHub API endpoint.
-        CustomClient client = retrofit.create(CustomClient.class);
+        API client = retrofit.create(API.class);
 
         // Fetch a list of the Github repositories.
-        Call<Get> call =
+        Call<User> call =
                 client.getData(name, age, email);
         //client.getData("nested.json");
 
         Log.v(getApplicationContext().toString(), "GC:" + call.request().toString());
 
         // Execute the call asynchronously. Get a positive or negative callback.
-        call.enqueue(new Callback<Get>() {
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Get> call, Response<Get> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 // The network call was a success and we got a response
                 // TODO: use the repository list and display it
 
-                Get custom = response.body();
-                String res = "Name: " + custom.getNombre() + " \nAge: " + custom.getEdad() + " \nEmail: " + custom.getEmail();
+                User custom = response.body();
+                String res = "Method: " + method;
+                res += "\nName: " + custom.getNombre() + " \nAge: " + custom.getEdad() + " \nEmail: " + custom.getEmail();
                 etResponse.setText(res);
             }
 
             @Override
-            public void onFailure(Call<Get> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 // the network call was a failure
                 // TODO: handle error
                 Toast.makeText(SimpleRequestActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();

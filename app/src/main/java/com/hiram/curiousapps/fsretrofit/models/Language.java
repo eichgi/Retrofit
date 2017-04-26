@@ -1,8 +1,6 @@
-package com.hiram.curiousapps.fsretrofit.modelos;
+package com.hiram.curiousapps.fsretrofit.models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Hiram on 16/04/2017.
