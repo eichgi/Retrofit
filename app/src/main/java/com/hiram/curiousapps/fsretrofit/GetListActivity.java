@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hiram.curiousapps.fsretrofit.interfaces.CustomClient;
@@ -22,17 +24,18 @@ public class GetListActivity extends AppCompatActivity {
 
     String API_URL = "http://api.eichgi.com";
     Button btnGetList;
+    TextView tvResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_list);
 
+        tvResponse = (TextView) findViewById(R.id.tvResponse);
         btnGetList = (Button) findViewById(R.id.btnGetList);
         btnGetList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 getList();
             }
         });
@@ -53,14 +56,12 @@ public class GetListActivity extends AppCompatActivity {
         listCall.enqueue(new Callback<List<Language>>() {
             @Override
             public void onResponse(Call<List<Language>> call, Response<List<Language>> response) {
-
                 List<Language> custom = response.body();
-                //Toast.makeText(GetListActivity.this, custom.get(0).getName(), Toast.LENGTH_SHORT).show();
+                String res = "";
                 for (Language language : custom) {
-                    Toast.makeText(GetListActivity.this, language.getName(), Toast.LENGTH_SHORT).show();
-                    Log.d(getApplicationContext().toString(), language.getName());
+                    res += language.allData() + "\n";
                 }
-                //Log.d(String.valueOf(getApplicationContext()), "RES: " + response.body().toString());
+                tvResponse.setText(res);
             }
 
             @Override

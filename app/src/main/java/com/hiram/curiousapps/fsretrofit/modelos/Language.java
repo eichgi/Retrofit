@@ -1,6 +1,7 @@
 package com.hiram.curiousapps.fsretrofit.modelos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -12,8 +13,7 @@ public class Language {
     String name;
     String creator;
     int released;
-    ArrayList frameworks;
-    //List<Framework> frameworks;
+    String[] frameworks;
 
     public Language() {
     }
@@ -30,11 +30,11 @@ public class Language {
         return released;
     }
 
-    /*public String[] getFramework() {
+    public String[] getFrameworks() {
         return frameworks;
-    }*/
+    }
 
-    public ArrayList getFrameworks() {
-        return frameworks;
+    public String allData() {
+        return "Name: " + name + ", Creator: " + creator + ", Realeased: " + released + ", Frameworks: " + Arrays.toString(frameworks);
     }
 }
