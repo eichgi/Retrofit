@@ -63,26 +63,27 @@ public class SimpleRequestActivity extends AppCompatActivity {
         int age = Integer.parseInt(etAge.getText() + "");
         String email = etEmail.getText() + "";
 
+        /** We start to build our retrofit instance builder passing the URL BASE and optionally
+         * the factory we want to use for deserialization */
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create());
 
+        /** Then we can assing an already builded instance */
         Retrofit retrofit = builder.build();
 
+        /** This is how we tell our retrofit's instance how to manage the selected interface*/
         API client = retrofit.create(API.class);
 
-        //Post post = new Post("Rose Rodriguez", 25, "rose@mail.com");
-
+        /** Now we define the instance of the call with our model's type, now client can call its own methods */
         Call<User> postCall = client.postData("post.php", name, age, email);
 
-        Log.v(getApplicationContext().toString(), "PC:" + postCall.request().body());
-
+        /** Then we enqueue the callback with our Class type, both method onResponse
+         * and onFailure will be able to receive the response, this call is asynchronous */
         postCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> postCall, Response<User> response) {
-                // The network call was a success and we got a response
-                // TODO: use the repository list and display it
-
+                /** We need to pour the response over an instance of the same type than our Call's type */
                 User custom = response.body();
                 String res = "Method: " + method;
                 res += "\nName: " + custom.getNombre() + " \nAge: " + custom.getEdad() + " \nEmail: " + custom.getEmail();
@@ -91,10 +92,8 @@ public class SimpleRequestActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                // the network call was a failure
-                // TODO: handle error
+                /** If there's an error we toast it*/
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.v(getApplicationContext().toString(), t.getMessage());
             }
         });
     }
@@ -104,7 +103,8 @@ public class SimpleRequestActivity extends AppCompatActivity {
         String name = etName.getText() + "";
         int age = Integer.parseInt(etAge.getText() + "");
         String email = etEmail.getText() + "";
-        //The client is optional, retrofit creates it if not defined
+
+        /** You don't need to define the http client, retrofit do it if you don't*/
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         Retrofit.Builder builder =
@@ -117,23 +117,13 @@ public class SimpleRequestActivity extends AppCompatActivity {
                         //.client(httpClient.build())
                         .build();
 
-        // Create a very simple REST adapter which points the GitHub API endpoint.
         API client = retrofit.create(API.class);
 
-        // Fetch a list of the Github repositories.
-        Call<User> call =
-                client.getData(name, age, email);
-        //client.getData("nested.json");
+        Call<User> call = client.getData(name, age, email);
 
-        Log.v(getApplicationContext().toString(), "GC:" + call.request().toString());
-
-        // Execute the call asynchronously. Get a positive or negative callback.
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                // The network call was a success and we got a response
-                // TODO: use the repository list and display it
-
                 User custom = response.body();
                 String res = "Method: " + method;
                 res += "\nName: " + custom.getNombre() + " \nAge: " + custom.getEdad() + " \nEmail: " + custom.getEmail();
@@ -142,8 +132,6 @@ public class SimpleRequestActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                // the network call was a failure
-                // TODO: handle error
                 Toast.makeText(SimpleRequestActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.v(getApplicationContext().toString(), t.getMessage());
             }
